@@ -15,13 +15,24 @@
         <tr><td>x2</td><td><input id="x2" type="number" placeholder="x2"></td></tr>
         <tr><td>p</td><td><input id="p" type="number" placeholder="p"></td></tr>
         <tr><td>q</td><td><input id="q" type="number" placeholder="q"></td></tr>
+        <tr><td colspan="2">-------------------------------------------------</td></tr>
+        <tr><td>Wzór ogólny</td><td><input id="wzor1" type="text" readonly></td></tr>
+        <tr><td>Wzór kanoniczny</td><td><input id="wzor2" type="text" readonly></td></tr>
+        <tr><td>Wzór iloczynowy</td><td><input id="wzor3" type="text" readonly></td></tr>
+        <tr><td>Wierzchołek</td><td><input id="wierzcholek" type="text" readonly></td></tr>
+        <tr><td>Miejsca zerowe</td><td><input id="mZerowe" type="text" readonly></td></tr>
     </table>
         
-        <button onClick="licz()">Licz</button>
+        <button onClick="licz()">Licz</button><button onClick="reset()">Resetuj pola</button>
         <script>
+            var a = $("#a"),b=$("#b"),c=$("#c"),delta=$("#delta"),x1=$("#x1"),x2=$("#x2"),p=$("#p"),q=$("#q");
+            function reset(){
+                $("input").each((ind,el)=>{
+                    $(el).val("");
+                })
+            }
             function licz(){
-                var a = $("#a"),b=$("#b"),c=$("#c"),delta=$("#delta"),x1=$("#x1"),x2=$("#x2"),p=$("#p"),q=$("#q");
-                var i = 0;
+               var i = 0;
                 while((a.val()=="" || b.val() =="" || c.val() =="") && i <= 3){
                     i++;
                     if(a.val()==""){
@@ -53,7 +64,21 @@
 
                 if(p.val()== "")p.val(-(b.val()/(2*a.val())));
                 if(q.val()=="")q.val(-delta.val()/(4*a.val()));
-                alert("Skończono!");
+
+                //--------------------------------------
+                $("#wzor1").val("f(x)="+a.val()+"x²"+b.val()+"x"+c.val());
+                $("#wzor2").val("f(x)="+a.val()+"(x-"+p.val()+")²+"+q.val());
+                if(delta.val()>0){
+                    $("#wzor3").val("f(x)="+a.val()+"(x-"+x1.val()+")(x-"+x2.val()+")");
+                    $("#mZerowe").val("x\u2081 = "+x1.val() + "| x\u2082= " + x2.val());
+                } else if(delta.val() ==0) {
+                    $("#wzor3").val("f(x)="+a.val()+"(x-"+x1.val()+")²");
+                    $("#mZerowe").val("x\u2081 = "+x1.val());
+                } else {
+                    $("#wzor3").val("Nie istnieje");
+                    $("#mZerowe").val("Brak miejsc zerowych");
+                }
+                $("#wierzcholek").val("W("+p.val()+";"+q.val()+")");
                 }
                 
             }
