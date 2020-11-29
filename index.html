@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kalkulator</title>
+        <meta charset="utf-8">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    </head>
+    <body><table border="1px solid black" style="border-collapse:collapse;">
+        <tr><td>a</td><td><input id="a" type="number" placeholder="a"></td></tr>
+        <tr><td>b</td><td><input id="b" type="number" placeholder="b"></td></tr>
+        <tr><td>c</td><td><input id="c" type="number" placeholder="c"></td></tr>
+        <tr><td>delta</td><td><input id="delta" type="number" placeholder="delta"></td></tr>
+        <tr><td>x1</td><td><input id="x1" type="number" placeholder="x1"></td></tr>
+        <tr><td>x2</td><td><input id="x2" type="number" placeholder="x2"></td></tr>
+        <tr><td>p</td><td><input id="p" type="number" placeholder="p"></td></tr>
+        <tr><td>q</td><td><input id="q" type="number" placeholder="q"></td></tr>
+    </table>
+        
+        <button onClick="licz()">Licz</button>
+        <script>
+            function licz(){
+                var a = $("#a"),b=$("#b"),c=$("#c"),delta=$("#delta"),x1=$("#x1"),x2=$("#x2"),p=$("#p"),q=$("#q");
+                while(a.val()=="" || b.val() =="" || c.val() ==""){
+                    if(a.val()==""){
+                        if(delta.val()!= "" && $('#c') != "" && $('#b') != "") a.val((delta.val()-b.val()*b.val())/-4*c.val);
+                        if(x1.val()!= "" && b.val() != "" && delta.val() != "") a.val((-b.val)-Math.sqrt(delta.val())/2*x1.val());
+                        if(p.val() != "" && b.val()!= "")a.val(-b.val()/2*p.val());
+                    }
+                    if(b.val()==""){
+                        if(delta.val()!= "" && a.val() != "" && c.val()!= "") b.val(Math.sqrt(delta.val()+4*a.val()*c.val()));
+                        if(p.val()!= "" && a.val() != "") b.val(-2*a.val()*p.val());
+                        if(a.val()!="" && x1.val() != "" && delta.val() != "") b.val(-(x1.val()*2*a.val()+Math.sqrt(delta.val())));
+                    }
+                    if(c.val()== ""){
+                        if(delta.val()!= "" && a.val() != "" && b.val()!= "") c.val((delta.val()-b.val()*b.val())/-4*a.val());
+                    }
+                }
+
+                if(delta.val()== 0) delta.val(b.val()*b.val()-4*a.val()*c.val());
+                if(delta.val()>0) {
+                    if(x1.val()=="") x1.val(((-b.val()-Math.sqrt(delta.val()))/2*a.val()));
+                    if(x2.val()=="") x2.val(((-b.val()+Math.sqrt(delta.val()))/2*a.val()));
+                } else if(delta.val() ==0) {
+                    if(x1.val()=="") x1.val((-b.val()/2*a.val()));
+                } else {
+                    x1.val("----------");
+                }
+
+                if(p.val()== "")p.val(-(b.val()/(2*a.val())));
+                if(q.val()=="")q.val(-delta.val()/(4*a.val()));
+                alert("Skończono!");
+            }
+         </script>
+    </body>
+</html>
