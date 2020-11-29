@@ -21,7 +21,9 @@
         <script>
             function licz(){
                 var a = $("#a"),b=$("#b"),c=$("#c"),delta=$("#delta"),x1=$("#x1"),x2=$("#x2"),p=$("#p"),q=$("#q");
-                while(a.val()=="" || b.val() =="" || c.val() ==""){
+                var i = 0;
+                while(a.val()=="" || b.val() =="" || c.val() =="" || i <= 3){
+                    i++;
                     if(a.val()==""){
                         if(delta.val()!= "" && $('#c') != "" && $('#b') != "") a.val((delta.val()-b.val()*b.val())/-4*c.val);
                         if(x1.val()!= "" && b.val() != "" && delta.val() != "") a.val((-b.val)-Math.sqrt(delta.val())/2*x1.val());
@@ -36,8 +38,10 @@
                         if(delta.val()!= "" && a.val() != "" && b.val()!= "") c.val((delta.val()-b.val()*b.val())/-4*a.val());
                     }
                 }
-
-                if(delta.val()== 0) delta.val(b.val()*b.val()-4*a.val()*c.val());
+                if(a.val()=="" || b.val() =="" || c.val() ==""){
+                    alert("Za mała ilość danych do przeprowadzenia obliczeń!");
+                }else {
+                    if(delta.val()== 0) delta.val(b.val()*b.val()-4*a.val()*c.val());
                 if(delta.val()>0) {
                     if(x1.val()=="") x1.val(((-b.val()-Math.sqrt(delta.val()))/2*a.val()));
                     if(x2.val()=="") x2.val(((-b.val()+Math.sqrt(delta.val()))/2*a.val()));
@@ -50,6 +54,8 @@
                 if(p.val()== "")p.val(-(b.val()/(2*a.val())));
                 if(q.val()=="")q.val(-delta.val()/(4*a.val()));
                 alert("Skończono!");
+                }
+                
             }
          </script>
     </body>
